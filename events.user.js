@@ -71,8 +71,10 @@ function eventKey($event) {
 
 function cleanUp($event) {
     var chip = $event.parents('.chip'),
-        left = Number(chip.css('left').replace(/[%px]*/g, ''));
-    chip.css('width', 100 - left + "%");
+        col = $event.parents('.tg-col-eventwrapper'),
+        chipleft = Number(chip.css('left').replace(/[%px]*/g, '')),
+        colwidth = Number(col.css('width').replace(/[%px]*/g, ''));
+    chip.css('width', 100 - Math.floor((chipleft / colwidth) * 100) + "%");
 }
 
 var merger = new EventMerger(eventKey, cleanUp);
